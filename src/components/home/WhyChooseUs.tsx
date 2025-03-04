@@ -13,7 +13,7 @@ const features = [
     id: 2,
     icon: <CreditCard className="h-10 w-10 text-brand-teal" />,
     title: 'Transparent Pricing',
-    description: 'No hidden fees or surprise charges. We provide clear pricing upfront so you know exactly what you're paying for.'
+    description: "No hidden fees or surprise charges. We provide clear pricing upfront so you know exactly what you're paying for."
   },
   {
     id: 3,
@@ -25,7 +25,7 @@ const features = [
     id: 4,
     icon: <CalendarCheck className="h-10 w-10 text-brand-teal" />,
     title: 'Flexible Bookings',
-    description: 'Plans change. That's why we offer flexible booking options to accommodate your schedule.'
+    description: "Plans change. That's why we offer flexible booking options to accommodate your schedule."
   }
 ];
 
