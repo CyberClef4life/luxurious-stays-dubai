@@ -1,6 +1,7 @@
 
 import PropertyCard from '@/components/ui/PropertyCard';
 import AnimatedSection from '@/components/ui/AnimatedSection';
+import { Button } from '@/components/ui/button';
 
 const properties = [
   {
