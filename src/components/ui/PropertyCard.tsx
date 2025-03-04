@@ -1,7 +1,8 @@
 
 import { useState } from 'react';
-import { MapPin, Users } from 'lucide-react';
+import { MapPin, Users, PenSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 interface PropertyCardProps {
   image: string;
@@ -32,6 +33,15 @@ const PropertyCard = ({ image, title, location, type, guests, bedrooms, index }:
           loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+        
+        {/* Admin Edit Link */}
+        <Link 
+          to="/backoffice" 
+          className="absolute top-3 right-3 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md hover:bg-white transition-colors"
+          title="Edit in backoffice"
+        >
+          <PenSquare size={16} className="text-brand-teal" />
+        </Link>
       </div>
       
       {/* Property Details */}

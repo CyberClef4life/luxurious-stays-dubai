@@ -1,0 +1,61 @@
+
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { toast } from 'sonner';
+import BackofficeLayout from '@/components/backoffice/BackofficeLayout';
+import PropertyForm from '@/components/backoffice/PropertyForm';
+
+const Backoffice = () => {
+  const [isAddingProperty, setIsAddingProperty] = useState(false);
+  const navigate = useNavigate();
+
+  return (
+    <BackofficeLayout>
+      <div className="container mx-auto px-6 py-8">
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-3xl font-bold">Property Management</h1>
+          <Button 
+            onClick={() => setIsAddingProperty(true)}
+            className="bg-brand-teal hover:bg-brand-teal/90"
+          >
+            Add New Property
+          </Button>
+        </div>
+        
+        {isAddingProperty ? (
+          <PropertyForm 
+            onCancel={() => setIsAddingProperty(false)}
+            onSuccess={() => {
+              setIsAddingProperty(false);
+              toast.success("Property added successfully!");
+            }}
+          />
+        ) : (
+          <div className="bg-white shadow-md rounded-lg p-6">
+            <div className="text-center py-10">
+              <img 
+                src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" 
+                alt="Property management" 
+                className="w-64 h-64 object-cover rounded-full mx-auto mb-6"
+              />
+              <h2 className="text-2xl font-semibold mb-4">Manage Your Properties</h2>
+              <p className="text-gray-600 mb-8 max-w-md mx-auto">
+                Add, edit, and remove properties from your portfolio. Keep track of bookings and availability.
+              </p>
+              <Button 
+                onClick={() => setIsAddingProperty(true)}
+                className="bg-brand-teal hover:bg-brand-teal/90"
+              >
+                Get Started
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    </BackofficeLayout>
+  );
+};
+
+export default Backoffice;
