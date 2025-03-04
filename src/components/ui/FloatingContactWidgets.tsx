@@ -20,7 +20,7 @@ const FloatingContactWidgets = () => {
       <div className={`flex flex-col gap-3 mb-3 transition-all duration-300 ${isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}>
         <a 
           href={`mailto:${contactEmail}`}
-          className="bg-brand-teal text-white p-3 rounded-full shadow-lg hover:bg-brand-teal/90 transition-colors flex items-center justify-center"
+          className="bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary/90 transition-colors flex items-center justify-center"
           aria-label="Email us"
         >
           <Mail size={24} />
@@ -42,7 +42,7 @@ const FloatingContactWidgets = () => {
       {/* Main toggler button */}
       <button
         onClick={toggleExpand}
-        className={`bg-brand-dark text-white p-4 rounded-full shadow-lg hover:bg-brand-dark/90 transition-all duration-300 ${isExpanded ? 'rotate-45' : ''}`}
+        className={`bg-primary text-white p-4 rounded-full shadow-lg hover:bg-primary/90 transition-all duration-300 ${isExpanded ? 'rotate-45' : ''}`}
         aria-label="Toggle contact options"
       >
         <svg 
