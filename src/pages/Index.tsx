@@ -5,9 +5,11 @@ import Hero from '@/components/home/Hero';
 import PropertySearch from '@/components/home/PropertySearch';
 import FeaturedProperties from '@/components/home/FeaturedProperties';
 import WhyChooseUs from '@/components/home/WhyChooseUs';
+import DubaiConciergeServices from '@/components/home/DubaiConciergeServices';
 import Testimonials from '@/components/home/Testimonials';
 import FAQ from '@/components/home/FAQ';
 import Footer from '@/components/layout/Footer';
+import FloatingContactWidgets from '@/components/ui/FloatingContactWidgets';
 
 const Index = () => {
   // Smooth scroll to section when URL contains hash
@@ -56,10 +58,12 @@ const Index = () => {
         <PropertySearch />
         <FeaturedProperties />
         <WhyChooseUs />
+        <DubaiConciergeServices />
         <Testimonials />
         <FAQ />
       </main>
       <Footer />
+      <FloatingContactWidgets />
     </div>
   );
 };

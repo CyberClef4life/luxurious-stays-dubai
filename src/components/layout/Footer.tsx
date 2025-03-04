@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const contactEmail = "customercare247f@conciergesublime.com";
   
   return (
     <footer className="bg-brand-dark text-white pb-6" id="footer">
@@ -17,8 +18,8 @@ const Footer = () => {
               Offering premium short-term rentals in Dubai's most sought-after locations, combining luxury, comfort, and exceptional service.
             </p>
             <div className="flex space-x-4">
-              <SocialLink href="#" aria-label="Facebook">
-                <Facebook size={18} />
+              <SocialLink href={`mailto:${contactEmail}`} aria-label="Email Us">
+                <Mail size={18} />
               </SocialLink>
               <SocialLink href="#" aria-label="Instagram">
                 <Instagram size={18} />
@@ -38,23 +39,23 @@ const Footer = () => {
             <ul className="space-y-3">
               <FooterLink href="#properties">Properties</FooterLink>
               <FooterLink href="#whyus">Why Choose Us</FooterLink>
+              <FooterLink href="#concierge">Concierge Services</FooterLink>
               <FooterLink href="#testimonials">Testimonials</FooterLink>
               <FooterLink href="#faq">FAQ</FooterLink>
               <FooterLink href="#about">About Us</FooterLink>
-              <FooterLink href="#blog">Blog</FooterLink>
             </ul>
           </div>
           
           {/* Locations */}
           <div>
-            <h3 className="text-lg font-semibold mb-6">Popular Locations</h3>
+            <h3 className="text-lg font-semibold mb-6">Dubai Bookings</h3>
             <ul className="space-y-3">
-              <FooterLink href="#">Dubai Marina</FooterLink>
-              <FooterLink href="#">Downtown Dubai</FooterLink>
-              <FooterLink href="#">Palm Jumeirah</FooterLink>
-              <FooterLink href="#">Business Bay</FooterLink>
-              <FooterLink href="#">DIFC</FooterLink>
-              <FooterLink href="#">Jumeirah Beach Residence</FooterLink>
+              <FooterLink href="#">Dubai Marina Rentals</FooterLink>
+              <FooterLink href="#">Downtown Dubai Stays</FooterLink>
+              <FooterLink href="#">Palm Jumeirah Villas</FooterLink>
+              <FooterLink href="#">Business Bay Apartments</FooterLink>
+              <FooterLink href="#">DIFC Executive Rentals</FooterLink>
+              <FooterLink href="#">JBR Beachfront Residences</FooterLink>
             </ul>
           </div>
           
@@ -71,11 +72,13 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <Phone size={18} className="mr-3 text-brand-teal" />
-                <p className="text-gray-300">+971 4 123 4567</p>
+                <p className="text-gray-300">+971-58-5959-868</p>
               </div>
               <div className="flex items-center">
                 <Mail size={18} className="mr-3 text-brand-teal" />
-                <p className="text-gray-300">info@conciergesublime.com</p>
+                <a href={`mailto:${contactEmail}`} className="text-gray-300 hover:text-white transition-colors">
+                  {contactEmail}
+                </a>
               </div>
             </div>
           </div>
