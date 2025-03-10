@@ -33,9 +33,9 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
-              src="/lovable-uploads/441e6537-f808-47d8-9b3a-de770fbc60f6.png" 
+              src="/lovable-uploads/b54eba77-803b-45d7-90b5-c5ed529ffb5c.png" 
               alt="ConciergeSublime" 
-              className="h-12 md:h-16 w-auto object-contain"
+              className="h-16 md:h-20 w-auto object-contain"
             />
           </Link>
 

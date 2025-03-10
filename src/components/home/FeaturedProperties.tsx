@@ -82,6 +82,7 @@ const FeaturedProperties = () => {
           {properties.map((property, index) => (
             <PropertyCard 
               key={property.id}
+              id={property.id}
               image={property.image}
               title={property.title}
               location={property.location}

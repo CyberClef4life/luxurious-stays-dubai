@@ -12,9 +12,10 @@ interface PropertyCardProps {
   guests: number;
   bedrooms: number;
   index: number;
+  id: number;
 }
 
-const PropertyCard = ({ image, title, location, type, guests, bedrooms, index }: PropertyCardProps) => {
+const PropertyCard = ({ id, image, title, location, type, guests, bedrooms, index }: PropertyCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   
   return (
@@ -67,8 +68,8 @@ const PropertyCard = ({ image, title, location, type, guests, bedrooms, index }:
         </div>
         
         <div className="mt-auto pt-3 border-t border-gray-100">
-          <Button className="w-full bg-brand-teal hover:bg-brand-teal/90">
-            Book Now
+          <Button className="w-full bg-brand-teal hover:bg-brand-teal/90" asChild>
+            <Link to={`/property/${id}`}>View Details</Link>
           </Button>
         </div>
       </div>
