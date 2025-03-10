@@ -13,7 +13,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 py-16">
           {/* Company Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-6">ConciergeSublime</h3>
+            <div className="mb-6">
+              <img 
+                src="/lovable-uploads/8d3779f6-316e-4d10-9d2a-a8b7aea40fb5.png" 
+                alt="ConciergeSublime" 
+                className="h-14 mb-4"
+              />
+            </div>
             <p className="text-gray-300 mb-6 pr-6">
               Offering premium short-term rentals in Dubai's most sought-after locations, combining luxury, comfort, and exceptional service.
             </p>

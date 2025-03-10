@@ -32,9 +32,11 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <span className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-brand-teal to-brand-dark">
-              ConciergeSublime
-            </span>
+            <img 
+              src="/lovable-uploads/8d3779f6-316e-4d10-9d2a-a8b7aea40fb5.png" 
+              alt="ConciergeSublime" 
+              className="h-10 md:h-12"
+            />
           </Link>
 
           {/* Desktop Navigation */}
