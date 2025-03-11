@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import BackofficeLayout from '@/components/backoffice/BackofficeLayout';
 import PropertyForm from '@/components/backoffice/PropertyForm';

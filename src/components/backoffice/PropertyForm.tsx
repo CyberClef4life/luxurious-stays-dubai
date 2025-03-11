@@ -1,5 +1,3 @@
-
-// PropertyForm.tsx
 import React, { useState, useEffect } from 'react';
 import {
   Form,
@@ -28,14 +26,13 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Plus, Trash } from 'lucide-react';
-import { toast } from "@/components/ui/use-toast"
+import { Plus, Trash, ImageIcon } from 'lucide-react';
+import { toast } from "sonner"
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createProperty, getProperty, updateProperty } from "@/lib/api";
+import { createProperty, getProperty, updateProperty, Property } from "@/lib/api";
 import { useParams, useNavigate } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import { uploadFile } from '@/lib/upload';
-import { ImageIcon } from 'lucide-react';
 import { deleteFile } from '@/lib/delete';
 
 const formSchema = z.object({
@@ -68,13 +65,38 @@ const formSchema = z.object({
   isAvailable: z.boolean().optional(),
 })
 
-const PropertyForm = () => {
+type FormValues = z.infer<typeof formSchema>;
+
+interface PropertyFormProps {
+  onCancel?: () => void;
+  onSuccess?: () => void;
+}
+
+const PropertyForm: React.FC<PropertyFormProps> = ({ onCancel, onSuccess }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isEditMode, setIsEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<string[]>([]);
   const [newImages, setNewImages] = useState<File[]>([]);
+
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      location: "",
+      propertyType: "",
+      amenities: [],
+      pricePerNight: 100,
+      bedrooms: 1,
+      bathrooms: 1,
+      maxGuests: 1,
+      images: [],
+      isAvailable: true,
+    },
+    mode: "onChange"
+  });
 
   useEffect(() => {
     if (id) {
@@ -98,60 +120,32 @@ const PropertyForm = () => {
     }
   }, [propertyData, form]);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      description: "",
-      location: "",
-      propertyType: "",
-      amenities: [],
-      pricePerNight: 100,
-      bedrooms: 1,
-      bathrooms: 1,
-      maxGuests: 1,
-      images: [],
-      isAvailable: true,
-    },
-    mode: "onChange"
-  })
-
   const { mutate: create, isPending: isCreatePending } = useMutation({
     mutationFn: createProperty,
     onSuccess: () => {
-      toast({
-        title: "Property created successfully.",
-      })
-      form.reset()
+      toast.success("Property created successfully.");
+      form.reset();
+      if (onSuccess) onSuccess();
       navigate('/backoffice');
     },
-    onError: (error) => {
-      toast({
-        title: "Something went wrong.",
-        description: error.message,
-        variant: "destructive",
-      })
+    onError: (error: Error) => {
+      toast.error("Something went wrong. " + error.message);
     },
-  })
+  });
 
   const { mutate: update, isPending: isUpdatePending } = useMutation({
     mutationFn: updateProperty,
     onSuccess: () => {
-      toast({
-        title: "Property updated successfully.",
-      })
+      toast.success("Property updated successfully.");
+      if (onSuccess) onSuccess();
       navigate('/backoffice');
     },
-    onError: (error) => {
-      toast({
-        title: "Something went wrong.",
-        description: error.message,
-        variant: "destructive",
-      })
+    onError: (error: Error) => {
+      toast.error("Something went wrong. " + error.message);
     },
-  })
+  });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: FormValues) {
     setLoading(true);
     Promise.all(
       newImages.map(async (image) => {
@@ -160,11 +154,7 @@ const PropertyForm = () => {
           return url;
         } catch (error) {
           console.error("Error uploading image:", error);
-          toast({
-            title: "Error uploading image.",
-            description: "Please try again.",
-            variant: "destructive",
-          })
+          toast.error("Error uploading image. Please try again.");
           return null;
         }
       })
@@ -174,18 +164,21 @@ const PropertyForm = () => {
         const allImages = [...images, ...validImageUrls];
 
         if (isEditMode && id) {
-          update({ id, ...values, images: allImages });
+          update({
+            id,
+            ...values,
+            images: allImages
+          } as Property);
         } else {
-          create({ ...values, images: allImages });
+          create({
+            ...values,
+            images: allImages
+          } as Omit<Property, "id">);
         }
       })
       .catch((error) => {
         console.error("Error in image upload process:", error);
-        toast({
-          title: "Error in image upload process.",
-          description: "Please try again.",
-          variant: "destructive",
-        })
+        toast.error("Error in image upload process. Please try again.");
       })
       .finally(() => {
         setLoading(false);
@@ -222,11 +215,7 @@ const PropertyForm = () => {
         }
       } catch (error) {
         console.error("Error deleting image:", error);
-        toast({
-          title: "Error deleting image.",
-          description: "Please try again.",
-          variant: "destructive",
-        })
+        toast.error("Error deleting image. Please try again.");
       }
     }
   };
@@ -411,7 +400,7 @@ const PropertyForm = () => {
                   <FormItem>
                     <FormLabel>Bedrooms</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="1" {...field} />
+                      <Input type="number" placeholder="1" {...field} onChange={e => field.onChange(parseInt(e.target.value))} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -424,7 +413,7 @@ const PropertyForm = () => {
                   <FormItem>
                     <FormLabel>Bathrooms</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="1" {...field} />
+                      <Input type="number" placeholder="1" {...field} onChange={e => field.onChange(parseInt(e.target.value))} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -437,7 +426,7 @@ const PropertyForm = () => {
                   <FormItem>
                     <FormLabel>Max Guests</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="1" {...field} />
+                      <Input type="number" placeholder="1" {...field} onChange={e => field.onChange(parseInt(e.target.value))} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
