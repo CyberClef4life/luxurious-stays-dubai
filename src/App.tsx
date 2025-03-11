@@ -8,6 +8,10 @@ import Index from "./pages/Index";
 import Backoffice from "./pages/Backoffice";
 import PropertyDetail from "./pages/PropertyDetail";
 import NotFound from "./pages/NotFound";
+import WhyChooseUs from "./pages/WhyChooseUs";
+import ConciergeServices from "./pages/ConciergeServices";
+import Testimonials from "./pages/Testimonials";
+import AboutUs from "./pages/AboutUs";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +25,10 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/backoffice" element={<Backoffice />} />
           <Route path="/property/:id" element={<PropertyDetail />} />
+          <Route path="/why-choose-us" element={<WhyChooseUs />} />
+          <Route path="/concierge-services" element={<ConciergeServices />} />
+          <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/about-us" element={<AboutUs />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

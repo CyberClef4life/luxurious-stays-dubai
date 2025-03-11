@@ -17,7 +17,7 @@ const Footer = () => {
               <img 
                 src="/lovable-uploads/b54eba77-803b-45d7-90b5-c5ed529ffb5c.png" 
                 alt="ConciergeSublime" 
-                className="h-24 md:h-28 w-auto object-contain mb-4"
+                className="h-28 md:h-32 w-auto object-contain mb-4"
               />
             </div>
             <p className="text-gray-300 mb-6 pr-6">
@@ -43,12 +43,12 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
             <ul className="space-y-3">
-              <FooterLink href="#properties">Properties</FooterLink>
-              <FooterLink href="#whyus">Why Choose Us</FooterLink>
-              <FooterLink href="#concierge">Concierge Services</FooterLink>
-              <FooterLink href="#testimonials">Testimonials</FooterLink>
-              <FooterLink href="#faq">FAQ</FooterLink>
-              <FooterLink href="#about">About Us</FooterLink>
+              <FooterLink href="/#properties">Properties</FooterLink>
+              <FooterLink href="/why-choose-us">Why Choose Us</FooterLink>
+              <FooterLink href="/concierge-services">Concierge Services</FooterLink>
+              <FooterLink href="/testimonials">Testimonials</FooterLink>
+              <FooterLink href="/#faq">FAQ</FooterLink>
+              <FooterLink href="/about-us">About Us</FooterLink>
             </ul>
           </div>
           
@@ -136,12 +136,12 @@ const Footer = () => {
 
 const FooterLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
   <li>
-    <a 
-      href={href} 
+    <Link 
+      to={href} 
       className="text-gray-300 hover:text-white transition-colors"
     >
       {children}
-    </a>
+    </Link>
   </li>
 );
 
