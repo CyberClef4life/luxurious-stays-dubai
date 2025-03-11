@@ -1,53 +1,27 @@
 
-// Mock API functions for property management
+// API functions for property management
 import { toast } from "sonner";
-
-export type Property = {
-  id: string;
-  name: string;
-  description: string;
-  location: string;
-  propertyType: string;
-  amenities: string[];
-  pricePerNight: number;
-  bedrooms: number;
-  bathrooms: number;
-  maxGuests: number;
-  images: string[];
-  isAvailable: boolean;
-};
-
-// Simulated database
-let properties: Property[] = [
-  {
-    id: "1",
-    name: "Luxury Villa",
-    description: "A beautiful villa with a pool and a view.",
-    location: "Dubai Marina",
-    propertyType: "Villa",
-    amenities: ["wifi", "pool", "parking"],
-    pricePerNight: 500,
-    bedrooms: 3,
-    bathrooms: 2,
-    maxGuests: 6,
-    images: ["https://images.unsplash.com/photo-1580587771525-78b9dba3b914"],
-    isAvailable: true,
-  },
-];
+import { Property } from "@/types/property";
+import { supabase } from "@/integrations/supabase/client";
+import { slugify } from "@/lib/utils";
 
 // Create a new property
 export const createProperty = async (propertyData: Omit<Property, "id">): Promise<Property> => {
   try {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Make sure slug is based on name if not provided
+    if (!propertyData.slug) {
+      propertyData.slug = slugify(propertyData.name);
+    }
     
-    const newProperty = {
-      ...propertyData,
-      id: Math.random().toString(36).substring(2, 15),
-    };
+    const { data, error } = await supabase
+      .from('properties')
+      .insert(propertyData)
+      .select()
+      .single();
     
-    properties.push(newProperty);
-    return newProperty;
+    if (error) throw error;
+    
+    return data;
   } catch (error) {
     console.error("Error creating property:", error);
     toast.error("Failed to create property");
@@ -58,10 +32,14 @@ export const createProperty = async (propertyData: Omit<Property, "id">): Promis
 // Get all properties
 export const getProperties = async (): Promise<Property[]> => {
   try {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    const { data, error } = await supabase
+      .from('properties')
+      .select('*')
+      .order('created_at', { ascending: false });
     
-    return properties;
+    if (error) throw error;
+    
+    return data || [];
   } catch (error) {
     console.error("Error fetching properties:", error);
     toast.error("Failed to fetch properties");
@@ -72,18 +50,36 @@ export const getProperties = async (): Promise<Property[]> => {
 // Get a single property by ID
 export const getProperty = async (id: string): Promise<Property> => {
   try {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    const { data, error } = await supabase
+      .from('properties')
+      .select('*')
+      .eq('id', id)
+      .single();
     
-    const property = properties.find(p => p.id === id);
+    if (error) throw error;
     
-    if (!property) {
-      throw new Error("Property not found");
-    }
-    
-    return property;
+    return data;
   } catch (error) {
     console.error("Error fetching property:", error);
+    toast.error("Failed to fetch property");
+    throw error;
+  }
+};
+
+// Get a single property by slug
+export const getPropertyBySlug = async (slug: string): Promise<Property> => {
+  try {
+    const { data, error } = await supabase
+      .from('properties')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+    
+    if (error) throw error;
+    
+    return data;
+  } catch (error) {
+    console.error("Error fetching property by slug:", error);
     toast.error("Failed to fetch property");
     throw error;
   }
@@ -92,17 +88,21 @@ export const getProperty = async (id: string): Promise<Property> => {
 // Update a property
 export const updateProperty = async (updatedProperty: Property): Promise<Property> => {
   try {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    const index = properties.findIndex(p => p.id === updatedProperty.id);
-    
-    if (index === -1) {
-      throw new Error("Property not found");
+    // Make sure slug is based on name if not provided
+    if (!updatedProperty.slug) {
+      updatedProperty.slug = slugify(updatedProperty.name);
     }
     
-    properties[index] = updatedProperty;
-    return updatedProperty;
+    const { data, error } = await supabase
+      .from('properties')
+      .update(updatedProperty)
+      .eq('id', updatedProperty.id)
+      .select()
+      .single();
+    
+    if (error) throw error;
+    
+    return data;
   } catch (error) {
     console.error("Error updating property:", error);
     toast.error("Failed to update property");
@@ -113,16 +113,12 @@ export const updateProperty = async (updatedProperty: Property): Promise<Propert
 // Delete a property
 export const deleteProperty = async (id: string): Promise<void> => {
   try {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    const { error } = await supabase
+      .from('properties')
+      .delete()
+      .eq('id', id);
     
-    const index = properties.findIndex(p => p.id === id);
-    
-    if (index === -1) {
-      throw new Error("Property not found");
-    }
-    
-    properties.splice(index, 1);
+    if (error) throw error;
   } catch (error) {
     console.error("Error deleting property:", error);
     toast.error("Failed to delete property");
