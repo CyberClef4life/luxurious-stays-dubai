@@ -1,270 +1,115 @@
 
-import React from "react";
-import { Helmet } from "react-helmet";
-import Footer from "@/components/layout/Footer";
-import Navbar from "@/components/layout/Navbar";
-import AnimatedSection from "@/components/ui/AnimatedSection";
-import { Mail, MapPin, Phone } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
-import FloatingContactWidgets from "@/components/ui/FloatingContactWidgets";
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const ConciergeServices = () => {
   return (
-    <>
+    <div className="container mx-auto px-6 py-12">
       <Helmet>
-        <title>Premium Concierge Services | ConciergeSublime Dubai</title>
-        <meta
-          name="description"
-          content="Experience tailored concierge services by ConciergeSublime in Dubai. From airport transfers to exclusive reservations and personalized experiences - we elevate your stay."
-        />
-        <meta
-          name="keywords"
-          content="Dubai concierge, luxury concierge services, VIP services Dubai, personal concierge Dubai, vacation concierge, airport transfer Dubai"
-        />
+        <title>Concierge Services | ConciergeSublime Luxury Properties</title>
+        <meta name="description" content="Experience personalized luxury with our premium concierge services. From airport transfers to private chefs, we cater to your every need during your stay." />
+        <meta name="keywords" content="concierge services, luxury accommodation, dubai concierge, private chef, airport transfers, yacht charter, luxury experience" />
       </Helmet>
 
-      <div className="flex min-h-screen flex-col">
-        <Navbar />
-        <main className="flex-1">
-          {/* Hero */}
-          <section className="relative bg-brand-dark text-white">
-            <div className="container mx-auto px-6 py-24 md:py-32">
-              <AnimatedSection>
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  Personalized Concierge Services in Dubai
-                </h1>
-                <p className="text-xl md:text-2xl max-w-3xl text-gray-300">
-                  Experience Dubai in unparalleled luxury with our premium concierge services tailored to your preferences.
-                </p>
-              </AnimatedSection>
-            </div>
-          </section>
-
-          {/* Services Overview */}
-          <section className="py-16 md:py-24 bg-white">
-            <div className="container mx-auto px-6">
-              <AnimatedSection>
-                <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-                  Our Premium Concierge Services
-                </h2>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                  <ServiceCard 
-                    title="Airport Transfers" 
-                    description="Luxury transportation from Dubai International Airport to your accommodation with our fleet of premium vehicles and professional chauffeurs."
-                  />
-                  <ServiceCard 
-                    title="Restaurant Reservations" 
-                    description="Secure tables at Dubai's most exclusive restaurants, including those with long waiting lists and special occasions."
-                  />
-                  <ServiceCard 
-                    title="Event Tickets" 
-                    description="Access to premier sporting events, concerts, shows, and exhibitions happening throughout Dubai and the UAE."
-                  />
-                  <ServiceCard 
-                    title="Yacht & Desert Safaris" 
-                    description="Private yacht charters along Dubai's coastline or authentic desert experiences with luxury transportation and amenities."
-                  />
-                  <ServiceCard 
-                    title="Personal Shopping" 
-                    description="From designer boutiques to traditional souks, our personal shopping assistants help you find exactly what you're looking for."
-                  />
-                  <ServiceCard 
-                    title="Childcare Services" 
-                    description="Professional nannies and babysitters, as well as recommendations for family-friendly activities throughout Dubai."
-                  />
-                  <ServiceCard 
-                    title="Wellness & Spa" 
-                    description="In-residence massage and wellness treatments or reservations at Dubai's most exclusive spas and health facilities."
-                  />
-                  <ServiceCard 
-                    title="Business Services" 
-                    description="Meeting room bookings, translation services, equipment rental, and other business-related assistance for corporate travelers."
-                  />
-                  <ServiceCard 
-                    title="Custom Experiences" 
-                    description="Bespoke experiences tailored to your interests, from helicopter tours to private cultural experiences with local experts."
-                  />
-                </div>
-              </AnimatedSection>
-            </div>
-          </section>
-
-          {/* Premium Membership */}
-          <section className="py-16 md:py-24 bg-gray-50">
-            <div className="container mx-auto px-6">
-              <AnimatedSection>
-                <div className="max-w-4xl mx-auto text-center">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                    Premium Membership Benefits
-                  </h2>
-                  <p className="text-lg text-gray-700 mb-12">
-                    Enhance your Dubai experience with our exclusive membership program, offering priority access to services and special privileges.
-                  </p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="bg-white p-8 rounded-lg shadow-md">
-                      <h3 className="text-xl font-semibold mb-4">Silver Membership</h3>
-                      <ul className="text-left space-y-3 mb-6">
-                        <BenefitItem>24/7 concierge assistance</BenefitItem>
-                        <BenefitItem>Priority restaurant reservations</BenefitItem>
-                        <BenefitItem>Standard airport transfers</BenefitItem>
-                        <BenefitItem>10% discount on additional services</BenefitItem>
-                      </ul>
-                      <p className="font-bold text-lg">AED 1,500 / month</p>
-                    </div>
-
-                    <div className="bg-brand-dark text-white p-8 rounded-lg shadow-md">
-                      <h3 className="text-xl font-semibold mb-4">Platinum Membership</h3>
-                      <ul className="text-left space-y-3 mb-6">
-                        <BenefitItem>Dedicated personal concierge</BenefitItem>
-                        <BenefitItem>VIP access to exclusive venues</BenefitItem>
-                        <BenefitItem>Luxury airport transfers</BenefitItem>
-                        <BenefitItem>25% discount on additional services</BenefitItem>
-                        <BenefitItem>Complimentary yacht experience (4 hours)</BenefitItem>
-                      </ul>
-                      <p className="font-bold text-lg">AED 5,000 / month</p>
-                    </div>
-                  </div>
-                </div>
-              </AnimatedSection>
-            </div>
-          </section>
-
-          {/* Contact Section */}
-          <section className="py-16 md:py-24 bg-white">
-            <div className="container mx-auto px-6">
-              <AnimatedSection>
-                <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-                  Request Concierge Services
-                </h2>
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-6">Get in Touch</h3>
-                    <p className="text-gray-700 mb-8">
-                      Our concierge team is available 24/7 to assist with your requests. Fill out the form or contact us directly for immediate assistance.
-                    </p>
-
-                    <div className="space-y-6">
-                      <div className="flex items-start">
-                        <MapPin size={20} className="mr-4 mt-1 text-brand-teal" />
-                        <div>
-                          <p className="font-medium">Our Office</p>
-                          <p className="text-gray-600">
-                            Level 14, Boulevard Plaza Tower 1,<br />
-                            Downtown Dubai, UAE
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center">
-                        <Phone size={20} className="mr-4 text-brand-teal" />
-                        <div>
-                          <p className="font-medium">Call Us</p>
-                          <p className="text-gray-600">+971-58-5959-868</p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center">
-                        <Mail size={20} className="mr-4 text-brand-teal" />
-                        <div>
-                          <p className="font-medium">Email Us</p>
-                          <p className="text-gray-600">customercare247f@conciergesublime.com</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <form className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            First Name
-                          </label>
-                          <input
-                            type="text"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-teal focus:border-brand-teal"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Last Name
-                          </label>
-                          <input
-                            type="text"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-teal focus:border-brand-teal"
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Email
-                        </label>
-                        <input
-                          type="email"
-                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-teal focus:border-brand-teal"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Phone Number
-                        </label>
-                        <input
-                          type="tel"
-                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-teal focus:border-brand-teal"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Service Request
-                        </label>
-                        <textarea
-                          rows={4}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-teal focus:border-brand-teal"
-                          placeholder="Please describe the services you're interested in..."
-                        ></textarea>
-                      </div>
-
-                      <button
-                        type="submit"
-                        className="px-6 py-3 bg-brand-teal text-white font-medium rounded-md hover:bg-brand-teal/90 transition-colors"
-                      >
-                        Submit Request
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </AnimatedSection>
-            </div>
-          </section>
-
-          <FloatingContactWidgets />
-        </main>
-        <Footer />
+      <h1 className="text-4xl font-bold mb-8 text-center">Concierge Services</h1>
+      
+      <div className="max-w-4xl mx-auto mb-12">
+        <p className="text-lg text-center mb-8">
+          At ConciergeSublime, we believe that true luxury goes beyond beautiful properties. Our dedicated concierge team is available 24/7 to ensure your stay is nothing short of exceptional.
+        </p>
       </div>
-    </>
-  );
-};
 
-const ServiceCard = ({ title, description }: { title: string; description: string }) => {
-  return (
-    <div className="bg-gray-50 p-8 rounded-lg transition-transform hover:-translate-y-1">
-      <h3 className="text-xl font-semibold mb-3">{title}</h3>
-      <Separator className="mb-4" />
-      <p className="text-gray-700">{description}</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <Card className="transition-all hover:shadow-lg">
+          <CardHeader>
+            <CardTitle>Airport Transfers</CardTitle>
+            <CardDescription>Travel in style and comfort</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>Begin your luxury experience the moment you land in Dubai. Our fleet of premium vehicles and professional chauffeurs will ensure a smooth and comfortable journey to your accommodation. Whether you prefer a sleek sedan, spacious SUV, or luxury van for group travel, we have the perfect vehicle for your needs.</p>
+          </CardContent>
+        </Card>
+
+        <Card className="transition-all hover:shadow-lg">
+          <CardHeader>
+            <CardTitle>Private Chef</CardTitle>
+            <CardDescription>Exquisite dining in the comfort of your accommodation</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>Experience culinary excellence with our private chef services. Our talented chefs will create personalized menus tailored to your preferences and dietary requirements. From intimate dinners to festive gatherings, elevate your dining experience with gourmet meals prepared in your own kitchen.</p>
+          </CardContent>
+        </Card>
+
+        <Card className="transition-all hover:shadow-lg">
+          <CardHeader>
+            <CardTitle>Yacht Charters</CardTitle>
+            <CardDescription>Explore Dubai's stunning coastline</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>Discover the beauty of Dubai from the water with our exclusive yacht charter services. Whether you're planning a romantic sunset cruise, a family day out, or an extravagant party, our range of luxury yachts offers the perfect setting for an unforgettable experience.</p>
+          </CardContent>
+        </Card>
+
+        <Card className="transition-all hover:shadow-lg">
+          <CardHeader>
+            <CardTitle>VIP Reservations</CardTitle>
+            <CardDescription>Access to Dubai's most exclusive venues</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>Gain privileged access to Dubai's most sought-after restaurants, clubs, and entertainment venues. Our concierge team has established relationships with the city's most exclusive establishments, ensuring you enjoy priority reservations and special treatment.</p>
+          </CardContent>
+        </Card>
+
+        <Card className="transition-all hover:shadow-lg">
+          <CardHeader>
+            <CardTitle>Personalized Tours</CardTitle>
+            <CardDescription>Explore Dubai with expert guides</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>Discover the rich culture and breathtaking landmarks of Dubai with our customized tours. Whether you're interested in historical sites, architectural marvels, or hidden gems known only to locals, our experienced guides will craft an itinerary tailored to your interests.</p>
+          </CardContent>
+        </Card>
+
+        <Card className="transition-all hover:shadow-lg">
+          <CardHeader>
+            <CardTitle>24/7 Support</CardTitle>
+            <CardDescription>Round-the-clock assistance for all your needs</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>Our dedicated concierge team is available 24 hours a day, 7 days a week to assist with any requests or concerns during your stay. From restaurant recommendations to emergency assistance, we're committed to ensuring you have everything you need for a perfect experience.</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="bg-gray-50 p-8 rounded-lg mb-12">
+        <h2 className="text-2xl font-bold mb-4 text-center">How It Works</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="text-center">
+            <div className="bg-brand-teal text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">1</div>
+            <h3 className="font-semibold mb-2">Request</h3>
+            <p>Contact our concierge team with your specific requirements</p>
+          </div>
+          <div className="text-center">
+            <div className="bg-brand-teal text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">2</div>
+            <h3 className="font-semibold mb-2">Customize</h3>
+            <p>We'll tailor our services to meet your exact preferences</p>
+          </div>
+          <div className="text-center">
+            <div className="bg-brand-teal text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">3</div>
+            <h3 className="font-semibold mb-2">Enjoy</h3>
+            <p>Relax and enjoy a seamless, luxurious experience</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="text-center max-w-2xl mx-auto">
+        <h2 className="text-2xl font-bold mb-4">Ready to Enhance Your Stay?</h2>
+        <p className="mb-6">Contact our concierge team today to discuss your requirements and let us create a tailored experience that exceeds your expectations.</p>
+        <button className="bg-brand-teal hover:bg-brand-teal/90 text-white px-6 py-3 rounded-md">Contact Concierge</button>
+      </div>
     </div>
   );
-};
-
-const BenefitItem = ({ children }: { children: React.ReactNode }) => {
-  return <li className="flex items-center">
-    <span className="mr-2 text-brand-teal">✓</span> {children}
-  </li>;
 };
 
 export default ConciergeServices;

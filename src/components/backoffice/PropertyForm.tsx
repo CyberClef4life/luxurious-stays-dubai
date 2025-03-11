@@ -1,3 +1,4 @@
+
 // PropertyForm.tsx
 import React, { useState, useEffect } from 'react';
 import {
@@ -26,7 +27,7 @@ import {
 } from "@/components/ui/slider"
 import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Plus, Trash } from 'lucide-react';
 import { toast } from "@/components/ui/use-toast"
 import { useMutation, useQuery } from "@tanstack/react-query";
