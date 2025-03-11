@@ -9,6 +9,7 @@ interface ButtonProps {
   size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
+  href?: string;
 }
 
 const Button = ({
@@ -19,6 +20,7 @@ const Button = ({
   size = 'md',
   disabled = false,
   type = 'button',
+  href,
 }: ButtonProps) => {
   const baseStyles = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background';
   
@@ -33,6 +35,18 @@ const Button = ({
     md: 'h-10 px-4 py-2',
     lg: 'h-11 px-6 text-lg'
   };
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        onClick={onClick}
+        className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
+      >
+        {children}
+      </a>
+    );
+  }
   
   return (
     <button

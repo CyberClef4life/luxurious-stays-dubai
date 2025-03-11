@@ -55,7 +55,7 @@ const Backoffice = () => {
         
         {isAddingProperty ? (
           <PropertyForm 
-            propertyId={isEditingProperty}
+            propertyId={isEditingProperty !== null ? isEditingProperty : undefined}
             onCancel={() => {
               setIsAddingProperty(false);
               setIsEditingProperty(null);

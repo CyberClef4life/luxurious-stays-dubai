@@ -9,7 +9,117 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      properties: {
+        Row: {
+          aboutproperty: string | null
+          accessibility: Json | null
+          amenities: string[] | null
+          babyandtoddler: Json | null
+          bathroomdetails: Json | null
+          bathrooms: number
+          bedroomdetails: Json | null
+          bedrooms: number
+          cleaningfee: number | null
+          created_at: string | null
+          description: string
+          entertainment: Json | null
+          essentials: Json | null
+          id: string
+          images: string[] | null
+          isavailable: boolean | null
+          kitchen: Json | null
+          laundry: Json | null
+          location: string
+          locationtype: Json | null
+          maxguests: number
+          name: string
+          parking: boolean | null
+          poolandspa: Json | null
+          popularamenities: string[] | null
+          pricepernight: number
+          propertytype: string
+          safety: Json | null
+          servicefee: number | null
+          services: Json | null
+          slug: string | null
+          spaces: string[] | null
+          suitability: Json | null
+          updated_at: string | null
+        }
+        Insert: {
+          aboutproperty?: string | null
+          accessibility?: Json | null
+          amenities?: string[] | null
+          babyandtoddler?: Json | null
+          bathroomdetails?: Json | null
+          bathrooms: number
+          bedroomdetails?: Json | null
+          bedrooms: number
+          cleaningfee?: number | null
+          created_at?: string | null
+          description: string
+          entertainment?: Json | null
+          essentials?: Json | null
+          id?: string
+          images?: string[] | null
+          isavailable?: boolean | null
+          kitchen?: Json | null
+          laundry?: Json | null
+          location: string
+          locationtype?: Json | null
+          maxguests: number
+          name: string
+          parking?: boolean | null
+          poolandspa?: Json | null
+          popularamenities?: string[] | null
+          pricepernight: number
+          propertytype: string
+          safety?: Json | null
+          servicefee?: number | null
+          services?: Json | null
+          slug?: string | null
+          spaces?: string[] | null
+          suitability?: Json | null
+          updated_at?: string | null
+        }
+        Update: {
+          aboutproperty?: string | null
+          accessibility?: Json | null
+          amenities?: string[] | null
+          babyandtoddler?: Json | null
+          bathroomdetails?: Json | null
+          bathrooms?: number
+          bedroomdetails?: Json | null
+          bedrooms?: number
+          cleaningfee?: number | null
+          created_at?: string | null
+          description?: string
+          entertainment?: Json | null
+          essentials?: Json | null
+          id?: string
+          images?: string[] | null
+          isavailable?: boolean | null
+          kitchen?: Json | null
+          laundry?: Json | null
+          location?: string
+          locationtype?: Json | null
+          maxguests?: number
+          name?: string
+          parking?: boolean | null
+          poolandspa?: Json | null
+          popularamenities?: string[] | null
+          pricepernight?: number
+          propertytype?: string
+          safety?: Json | null
+          servicefee?: number | null
+          services?: Json | null
+          slug?: string | null
+          spaces?: string[] | null
+          suitability?: Json | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

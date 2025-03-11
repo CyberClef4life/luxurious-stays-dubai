@@ -5,14 +5,18 @@ interface AnimatedSectionProps {
   children: React.ReactNode;
   className?: string;
   delay?: number;
-  animation?: 'fade-in' | 'fade-in-right' | 'fade-in-left';
+  animation?: 'fade-in' | 'fade-in-right' | 'fade-in-left' | 'fade-up';
+  style?: React.CSSProperties;
+  id?: string;
 }
 
 const AnimatedSection: React.FC<AnimatedSectionProps> = ({ 
   children, 
   className = '', 
   delay = 0,
-  animation = 'fade-in'
+  animation = 'fade-in',
+  style,
+  id
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -46,8 +50,9 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
   return (
     <div
       ref={sectionRef}
+      id={id}
       className={`${className} ${isVisible ? `animate-${animation}` : 'opacity-0'}`}
-      style={{ animationDelay: `${delay}ms` }}
+      style={{ animationDelay: `${delay}ms`, ...style }}
     >
       {children}
     </div>

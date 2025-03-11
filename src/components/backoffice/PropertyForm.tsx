@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import {
   Form,
@@ -29,7 +30,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Plus, Trash, ImageIcon } from 'lucide-react';
 import { toast } from "sonner"
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createProperty, getProperty, updateProperty, Property } from "@/lib/api";
+import { createProperty, getProperty, updateProperty } from "@/lib/api";
+import { Property } from "@/types/property";
 import { useParams, useNavigate } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import { uploadFile } from '@/lib/upload';
@@ -68,17 +70,21 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 interface PropertyFormProps {
+  propertyId?: string;
   onCancel?: () => void;
   onSuccess?: () => void;
 }
 
-const PropertyForm: React.FC<PropertyFormProps> = ({ onCancel, onSuccess }) => {
+const PropertyForm: React.FC<PropertyFormProps> = ({ propertyId, onCancel, onSuccess }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isEditMode, setIsEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<string[]>([]);
   const [newImages, setNewImages] = useState<File[]>([]);
+
+  // Use propertyId from props if provided, otherwise use id from URL params
+  const propertyIdToUse = propertyId || id;
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -99,15 +105,15 @@ const PropertyForm: React.FC<PropertyFormProps> = ({ onCancel, onSuccess }) => {
   });
 
   useEffect(() => {
-    if (id) {
+    if (propertyIdToUse) {
       setIsEditMode(true);
     }
-  }, [id]);
+  }, [propertyIdToUse]);
 
   const { data: propertyData, isLoading } = useQuery({
-    queryKey: ['property', id],
-    queryFn: () => getProperty(id as string),
-    enabled: isEditMode && !!id,
+    queryKey: ['property', propertyIdToUse],
+    queryFn: () => getProperty(propertyIdToUse as string),
+    enabled: isEditMode && !!propertyIdToUse,
   });
 
   useEffect(() => {
@@ -163,9 +169,9 @@ const PropertyForm: React.FC<PropertyFormProps> = ({ onCancel, onSuccess }) => {
         const validImageUrls = newImageUrls.filter((url): url is string => url !== null);
         const allImages = [...images, ...validImageUrls];
 
-        if (isEditMode && id) {
+        if (isEditMode && propertyIdToUse) {
           update({
-            id,
+            id: propertyIdToUse,
             ...values,
             images: allImages
           } as Property);
