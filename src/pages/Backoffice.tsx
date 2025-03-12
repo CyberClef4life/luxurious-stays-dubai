@@ -37,6 +37,19 @@ const Backoffice = () => {
     setIsAddingProperty(true);
   };
 
+  const refreshProperties = async () => {
+    setLoading(true);
+    try {
+      const data = await getProperties();
+      setProperties(data);
+    } catch (error) {
+      console.error("Error refreshing properties:", error);
+      toast.error("Failed to refresh properties");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <BackofficeLayout>
       <div className="container mx-auto px-6 py-8">
@@ -55,7 +68,7 @@ const Backoffice = () => {
         
         {isAddingProperty ? (
           <PropertyForm 
-            propertyId={isEditingProperty !== null ? isEditingProperty : undefined}
+            propertyId={isEditingProperty}
             onCancel={() => {
               setIsAddingProperty(false);
               setIsEditingProperty(null);
@@ -63,6 +76,7 @@ const Backoffice = () => {
             onSuccess={() => {
               setIsAddingProperty(false);
               setIsEditingProperty(null);
+              refreshProperties();
               toast.success(isEditingProperty ? "Property updated successfully!" : "Property added successfully!");
             }}
           />
@@ -72,17 +86,7 @@ const Backoffice = () => {
               <PropertyList 
                 properties={properties} 
                 onEdit={handleEditProperty}
-                onRefresh={() => {
-                  setLoading(true);
-                  getProperties().then(data => {
-                    setProperties(data);
-                    setLoading(false);
-                  }).catch(error => {
-                    console.error("Error refreshing properties:", error);
-                    toast.error("Failed to refresh properties");
-                    setLoading(false);
-                  });
-                }}
+                onRefresh={refreshProperties}
               />
             ) : (
               <div className="bg-white shadow-md rounded-lg p-6">

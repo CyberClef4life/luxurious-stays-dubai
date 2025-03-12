@@ -16,27 +16,27 @@ export interface Property {
   isAvailable: boolean;
   
   // Extended property details
-  aboutProperty: string;
-  popularAmenities: string[];
+  aboutProperty?: string;
+  popularAmenities?: string[];
   
   // Rooms & beds
-  bedroomDetails: {
+  bedroomDetails?: {
     roomName: string;
     bedType: string;
     bedCount: number;
   }[];
   
   // Bathrooms
-  bathroomDetails: {
+  bathroomDetails?: {
     roomName: string;
     features: string[];
   }[];
   
   // Spaces
-  spaces: string[];
+  spaces?: string[];
   
   // Essentials
-  essentials: {
+  essentials?: {
     wifi: boolean;
     internet: boolean;
     towels: boolean;
@@ -47,7 +47,7 @@ export interface Property {
   };
   
   // Kitchen
-  kitchen: {
+  kitchen?: {
     available: boolean;
     refrigerator: boolean;
     dishwasher: boolean;
@@ -61,13 +61,13 @@ export interface Property {
   };
   
   // Pool & spa
-  poolAndSpa: {
+  poolAndSpa?: {
     communalPool: boolean;
     privatePool: boolean;
   };
   
   // Entertainment
-  entertainment: {
+  entertainment?: {
     games: boolean;
     books: boolean;
     television: boolean;
@@ -75,24 +75,24 @@ export interface Property {
   };
   
   // Baby & toddler
-  babyAndToddler: {
+  babyAndToddler?: {
     travelCot: boolean;
     highchair: boolean;
     toys: boolean;
   };
   
   // Laundry
-  laundry: {
+  laundry?: {
     washingMachine: boolean;
     clothesDryer: boolean;
     iron: boolean;
   };
   
   // Parking
-  parking: boolean;
+  parking?: boolean;
   
   // Safety
-  safety: {
+  safety?: {
     carbonMonoxideDetector: boolean;
     smokeDetector: boolean;
     fireExtinguisher: boolean;
@@ -100,13 +100,13 @@ export interface Property {
   };
   
   // Accessibility
-  accessibility: {
+  accessibility?: {
     wheelchairAccessible: boolean;
     lift: boolean;
   };
   
   // Location type
-  locationType: {
+  locationType?: {
     beach: boolean;
     nearOcean: boolean;
     cityCenter: boolean;
@@ -116,16 +116,20 @@ export interface Property {
   };
   
   // Services
-  services: {
+  services?: {
     concierge: boolean;
   };
   
   // Suitability
-  suitability: {
+  suitability?: {
     minimumAgeLimit: number;
     petsAllowed: boolean;
   };
   
   // SEO
-  slug: string;
+  slug?: string;
+  
+  // Timestamps
+  created_at?: string;
+  updated_at?: string;
 }
