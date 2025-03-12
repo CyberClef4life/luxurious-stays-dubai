@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import BackofficeLayout from '@/components/backoffice/BackofficeLayout';
 import PropertyForm from '@/components/backoffice/PropertyForm';
@@ -17,6 +19,8 @@ const Backoffice = () => {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
+  const [email, setEmail] = useState('admin@example.com');
+  const [password, setPassword] = useState('password123');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +31,6 @@ const Backoffice = () => {
       if (!data.session) {
         // If no session, redirect to login or show login prompt
         setIsAuthenticated(false);
-        toast.error("You must be logged in to access the backoffice");
         // For now just show login UI in the same page
       } else {
         setIsAuthenticated(true);
@@ -85,13 +88,13 @@ const Backoffice = () => {
     }
   };
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     try {
       setLoginLoading(true);
-      // Use demo credentials for testing
       const { data, error } = await supabase.auth.signInWithPassword({
-        email: 'admin@example.com',
-        password: 'password123',
+        email,
+        password,
       });
       
       if (error) {
@@ -141,22 +144,46 @@ const Backoffice = () => {
 
   if (!isAuthenticated) {
     return (
-      <BackofficeLayout showAuth={true} onSignIn={handleSignIn}>
+      <BackofficeLayout showAuth={true} onSignIn={handleSignIn} isAuthenticated={isAuthenticated} onSignOut={handleSignOut}>
         <div className="container mx-auto px-6 py-8">
           <div className="bg-white shadow-md rounded-lg p-6 max-w-md mx-auto">
-            <h1 className="text-2xl font-bold mb-6 text-center">Login Required</h1>
-            <p className="mb-6 text-gray-700">
-              You need to be logged in to access the property management dashboard.
-            </p>
-            <Button 
-              onClick={handleSignIn} 
-              className="w-full bg-brand-teal hover:bg-brand-teal/90"
-              disabled={loginLoading}
-            >
-              {loginLoading ? "Signing in..." : "Sign In with Demo Account"}
-            </Button>
+            <h1 className="text-2xl font-bold mb-6 text-center">Backoffice Login</h1>
+            <form onSubmit={handleSignIn} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input 
+                  id="email" 
+                  type="email" 
+                  value={email} 
+                  onChange={(e) => setEmail(e.target.value)} 
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input 
+                  id="password" 
+                  type="password" 
+                  value={password} 
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password" 
+                  required
+                />
+              </div>
+              <Button 
+                type="submit"
+                className="w-full bg-brand-teal hover:bg-brand-teal/90"
+                disabled={loginLoading}
+              >
+                {loginLoading ? "Signing in..." : "Sign In"}
+              </Button>
+            </form>
             <p className="mt-4 text-sm text-gray-500 text-center">
-              This is a demo login for testing purposes.
+              Demo credentials are pre-filled for testing purposes.
+            </p>
+            <p className="mt-2 text-xs text-gray-400 text-center">
+              Access URL: conciergesublime.com/backoffice
             </p>
           </div>
         </div>

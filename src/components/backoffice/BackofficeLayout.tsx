@@ -89,26 +89,15 @@ const BackofficeLayout = ({
               <h2 className="text-xl font-semibold text-gray-800">Backoffice</h2>
             </div>
             
-            {showAuth && (
-              <div>
-                {isAuthenticated ? (
-                  <Button 
-                    onClick={onSignOut}
-                    variant="outline"
-                    className="flex items-center"
-                  >
-                    <LogOut size={16} className="mr-2" />
-                    Sign Out
-                  </Button>
-                ) : (
-                  <Button 
-                    onClick={onSignIn}
-                    className="bg-brand-teal hover:bg-brand-teal/90"
-                  >
-                    Sign In
-                  </Button>
-                )}
-              </div>
+            {isAuthenticated && (
+              <Button 
+                onClick={onSignOut}
+                variant="outline"
+                className="flex items-center"
+              >
+                <LogOut size={16} className="mr-2" />
+                Sign Out
+              </Button>
             )}
           </div>
         </header>
