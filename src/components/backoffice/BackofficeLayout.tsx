@@ -3,12 +3,23 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Home, Building, Users, Calendar, Settings, LogOut, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 interface BackofficeLayoutProps {
   children: React.ReactNode;
+  showAuth?: boolean;
+  isAuthenticated?: boolean;
+  onSignIn?: () => void;
+  onSignOut?: () => void;
 }
 
-const BackofficeLayout = ({ children }: BackofficeLayoutProps) => {
+const BackofficeLayout = ({ 
+  children, 
+  showAuth = false,
+  isAuthenticated = false,
+  onSignIn,
+  onSignOut
+}: BackofficeLayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const navigate = useNavigate();
 
@@ -68,15 +79,37 @@ const BackofficeLayout = ({ children }: BackofficeLayoutProps) => {
         {/* Topbar */}
         <header className="bg-white shadow-sm z-10">
           <div className="px-4 py-4 flex items-center justify-between">
-            <button 
-              onClick={toggleSidebar}
-              className="md:hidden text-gray-500 hover:text-gray-700"
-            >
-              <Menu size={24} />
-            </button>
-            <div className="flex-1 md:ml-4">
+            <div className="flex items-center">
+              <button 
+                onClick={toggleSidebar}
+                className="md:hidden text-gray-500 hover:text-gray-700 mr-4"
+              >
+                <Menu size={24} />
+              </button>
               <h2 className="text-xl font-semibold text-gray-800">Backoffice</h2>
             </div>
+            
+            {showAuth && (
+              <div>
+                {isAuthenticated ? (
+                  <Button 
+                    onClick={onSignOut}
+                    variant="outline"
+                    className="flex items-center"
+                  >
+                    <LogOut size={16} className="mr-2" />
+                    Sign Out
+                  </Button>
+                ) : (
+                  <Button 
+                    onClick={onSignIn}
+                    className="bg-brand-teal hover:bg-brand-teal/90"
+                  >
+                    Sign In
+                  </Button>
+                )}
+              </div>
+            )}
           </div>
         </header>
         

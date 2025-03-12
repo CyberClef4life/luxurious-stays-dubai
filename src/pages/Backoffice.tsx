@@ -16,6 +16,7 @@ const Backoffice = () => {
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -85,21 +86,45 @@ const Backoffice = () => {
   };
 
   const handleSignIn = async () => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email: 'admin@example.com',
-      password: 'password123',
-    });
-    
-    if (error) {
-      toast.error(`Login failed: ${error.message}`);
-    } else {
-      toast.success("Logged in successfully");
+    try {
+      setLoginLoading(true);
+      // Use demo credentials for testing
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: 'admin@example.com',
+        password: 'password123',
+      });
+      
+      if (error) {
+        console.error("Login error:", error);
+        toast.error(`Login failed: ${error.message}`);
+      } else {
+        console.log("Login successful:", data);
+        toast.success("Logged in successfully");
+        setIsAuthenticated(true);
+        fetchProperties();
+      }
+    } catch (err) {
+      console.error("Unexpected login error:", err);
+      toast.error("An unexpected error occurred during login");
+    } finally {
+      setLoginLoading(false);
     }
   };
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    toast.success("Logged out successfully");
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("Logout error:", error);
+        toast.error(`Logout failed: ${error.message}`);
+      } else {
+        toast.success("Logged out successfully");
+        setIsAuthenticated(false);
+      }
+    } catch (err) {
+      console.error("Unexpected logout error:", err);
+      toast.error("An unexpected error occurred during logout");
+    }
   };
 
   if (loading) {
@@ -116,7 +141,7 @@ const Backoffice = () => {
 
   if (!isAuthenticated) {
     return (
-      <BackofficeLayout>
+      <BackofficeLayout showAuth={true} onSignIn={handleSignIn}>
         <div className="container mx-auto px-6 py-8">
           <div className="bg-white shadow-md rounded-lg p-6 max-w-md mx-auto">
             <h1 className="text-2xl font-bold mb-6 text-center">Login Required</h1>
@@ -126,8 +151,9 @@ const Backoffice = () => {
             <Button 
               onClick={handleSignIn} 
               className="w-full bg-brand-teal hover:bg-brand-teal/90"
+              disabled={loginLoading}
             >
-              Sign In with Demo Account
+              {loginLoading ? "Signing in..." : "Sign In with Demo Account"}
             </Button>
             <p className="mt-4 text-sm text-gray-500 text-center">
               This is a demo login for testing purposes.
@@ -139,7 +165,7 @@ const Backoffice = () => {
   }
 
   return (
-    <BackofficeLayout>
+    <BackofficeLayout showAuth={true} onSignOut={handleSignOut} isAuthenticated={isAuthenticated}>
       <div className="container mx-auto px-6 py-8">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold">Property Management</h1>
@@ -152,12 +178,6 @@ const Backoffice = () => {
               className="bg-brand-teal hover:bg-brand-teal/90"
             >
               Add New Property
-            </Button>
-            <Button 
-              onClick={handleSignOut}
-              variant="outline"
-            >
-              Sign Out
             </Button>
           </div>
         </div>
